@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>revisão prática</title>
+    <link rel="stylesheet" href="style.css" >
+</head>
+<body>
+    <div class="estilizar_dps">
+        <h1>Exercicio 1</h1>
+        <input type="text" placeholder="Digite algo piriri" id="frase">
+        <button id="incluir" onclick=adicionar()>Exercicio 1</button>
+        <ul id="adicionar"></ul>
+        
+        <h1>
+            Exercicio 2
+        </h1>
+        <input type="text" placeholder="Insira alguma coisa" id="pegValor">
+        <ul id ="add"></ul>
+        <h1>
+            Exercicio 3
+        </h1>
+        <ul id="ex3"></ul>
+        <h1>Exercicio 4</h1>
+        <ul id="ulex4"></ul>
+        <input type="text" id="ex4" placeholder="Insira a inicial da palavra...">
+        <h1>Exercicio 5</h1>
+        <form id="formex5">            
+        </form>
+        <ul id="ulex5"></ul>
+        <h1>Exercicio 6</h1>
+        <h2 id="ex6"></h2>
+        <h1>Exercicio 7</h1>
+        <ul id="ex7"></ul>
+        <input type="text" id="nome_fruta" placeholder="Inisira o nome da fruta  ">
+        <button onclick=frutaAdicionar()>Insira</button>
+    </div>
+</body>
+<script>
+    //Exercício 1: implemente uma função que ao clicar no botão exercício 1 a seguir, insira o valor do input como um elemento li no elemento ul a seguir. Utilize o conceito de string interpolation
+    function adicionar(){
+        let frase = document.getElementById('frase').value;
+        let ul = document.getElementById('adicionar');
+        ul.innerHTML += `<li>${frase}</li>`;
+        document.getElementById("frase").value="";
+    }
+
+    //implemente uma função que atualize o valor do elemento li, enquanto o usuário digita. Utilize o evento keyup ou keydown.
+    let pegValor = document.getElementById('pegValor');
+
+    pegValor.addEventListener("keyup", function(){
+        let ul = document.getElementById('add');
+        ul.innerHTML = `<li>${pegValor.value}</li>`
+        if(pegValor.value == ""){
+            ul.innerHTML = "";
+        }
+    })
+
+    //implemente uma função que receba como parâmetro um vetor com os seguintes valores de tipo String: abacate, uva, maracujá, mamão, cereja, jaboticaba, jaca, guaraná. Para cade elemento do vetor, deve ser gerado um elemento li com o valor da String; e inserido no elemento ul a seguir. Utilize o método forEach do Array.
+    let frutas = ["Abacate", "Uva", "Maracujá", "Mamão", "Cereja", "Jabotica", "Jaca", "Guaraná"]
+
+    frutas.map(function(fruta){
+        let ul = document.getElementById('ex3');
+        ul.innerHTML += `<li>${fruta}</li>`;
+    })
+    
+    // Extenda o exercício anterior, mas no elemento input, deve ser implementada uma função de busca pelas Strings que começarem com as mesmas letras inseridas no input. Utilize o método filter do Array.
+    let ex4 = document.getElementById('ex4');
+    let ulex4 = document.getElementById('ulex4');
+    ex4.addEventListener("keyup", function(){
+        ulex4.innerHTML = "";
+        frutas.filter(function(fruta){
+            if(fruta[0].toLowerCase() == ex4.value.toLowerCase()){
+                ulex4.innerHTML += `<li>${fruta}</li>`;
+            }
+        })
+    })
+
+    // extenda o exercício anterior, armazene os valores do vetor dentro de objetos JavaScript com as propriedades nome como valor da String e checked como um booleano de valor false. O valor da variável booleana deve ser apresentado em um checkbox dentro do elemento li. Se o checkbox for clicado, o checkbox deve ser checado e o valor tem que ser refletido no vetor de valores (como uma TodoList). Utilize o método map do Array.
+    let frutasObjetos = [{nome: "Abacate", checked: false}, {nome: "Uva", checked: false}, {nome: "Maracujá", checked: false}, {nome: "Mamão", checked: false}, {nome: "Cereja", checked: false}, {nome: "Jabotica", checked: false}, {nome: "Jaca", checked: false}, {nome: "Guaraná", checked: false}]
+    console.log(frutasObjetos);
+
+
+    const marca = () => {
+        frutasObjetos.map(fruta => {
+            let input = document.getElementById(fruta.nome);
+            if(input.checked){
+                fruta.checked = true;
+            }else{
+                fruta.checked = false;
+            }
+        });
+
+        let ul = document.getElementById('ulex5');
+        ul.innerHTML = "";
+        frutasObjetos.map(fruta => {
+            ul.innerHTML += `<li>Nome: ${fruta.nome} <br> Flag: ${fruta.checked}</li>`;
+        });
+
+        // extenda o exercício anterior, e apresente o elemento p a seguir o número de elementos do vetor que foram checados. Utilize o método filter ou reduce do Array.
+        frutasObjetos.map(fruta => {
+        let h2 = document.getElementById('ex6');
+        h2.innerHTML = `Número de elementos checados: ${frutasObjetos.filter(fruta => fruta.checked == true).length}`;
+    });
+    }    
+
+    frutasObjetos.map(function(fruta){
+        let form = document.getElementById('formex5');
+        form.innerHTML += `<input type="checkbox" id="${fruta.nome}" name="${fruta.nome}" value="${fruta.nome}" onClick=marca()> <label for="${fruta.nome}">${fruta.nome}</label><br>`;
+    
+    })
+
+    // encapsule toda a lógica dos exercícios anteriores (3-6) dentro de uma classe, utilizando o conceito de closures ou classes do ES6. Implemente uma funcionalidade de inserção de novos elementos na lista.
+    frutas.map(function(fruta){
+        let ul = document.getElementById('ex7');
+        ul.innerHTML += `<li>${fruta}</li>`;
+    })
+
+</script>
+</html>
